@@ -55,3 +55,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+vectors.txt
+getEvaluations.py
+data.txt

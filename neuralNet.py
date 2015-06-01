@@ -23,29 +23,29 @@ def add_modules(net):
 
     #define modules
     modules['inp'] = SigmoidLayer(800)
-    modules['h1'] = SigmoidLayer(1000)
-    modules['h3'] = neurons.cosineSimiliarity(400)
-    modules['h3'] = neurons.euclideanDistance(800)
+    #modules['h1'] = SigmoidLayer(1000)
+    modules['h2'] = neurons.cosineSimiliarity(10)
+    #modules['h3'] = neurons.euclideanDistance(800)
     modules['outp'] = LinearLayer(1)
 
     # add modules
     net.addInputModule(modules['inp'])
     net.addOutputModule(modules['outp'])
-    net.addModule(modules['h1'])
+    #net.addModule(modules['h1'])
     net.addModule(modules['h2'])
-    net.addModule(modules['h3'])
+    #net.addModule(modules['h3'])
 
     return modules
 
 
 def add_connections(net, modules):
     # create connections
-    m = MotherConnection(400000)
+    m = MotherConnection(4000)
 
-    c1 = SharedFullConnection(m, modules['inp'], modules['h1'], inSliceTo=400)
-    c2 = SharedFullConnection(m, modules['inp'], modules['h1'], inSliceFrom=400)
+    c1 = SharedFullConnection(m, modules['inp'], modules['h2'], inSliceTo=400)
+    c2 = SharedFullConnection(m, modules['inp'], modules['h2'], inSliceFrom=400)
     net.addConnection(c1)
     net.addConnection(c2)
-    net.addConnection(FullConnection(modules['h1'], modules['h2']))
-    net.addConnection(FullConnection(modules['h2'], modules['h3']))
-    net.addConnection(FullConnection(modules['h3'], modules['h4']))
+    #net.addConnection(FullConnection(modules['h1'], modules['h2']))
+    #net.addConnection(FullConnection(modules['h2'], modules['h3']))
+    net.addConnection(FullConnection(modules['h2'], modules['outp']))

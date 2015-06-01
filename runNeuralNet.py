@@ -41,3 +41,6 @@ def train_model(net, ds):
             conf_arr[guess[j]][correct[j]] += 1
         conf.makeconf(conf_arr)
     print counter
+
+if __name__ == '__main__':
+    runNet()

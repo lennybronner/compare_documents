@@ -2,7 +2,7 @@ from pybrain.structure.networks.feedforward import FeedForwardNetwork
 from pybrain.structure.modules.linearlayer import LinearLayer
 from pybrain.structure.modules.sigmoidlayer import SigmoidLayer
 from pybrain.structure.modules import SoftmaxLayer, TanhLayer, BiasUnit
-from neurons import reLU
+from neurons import reluLayer
 from pybrain.structure.connections.shared import MotherConnection, SharedFullConnection
 from pybrain.structure import FullConnection
 from pybrain.tests.helpers import gradientCheck
@@ -25,7 +25,7 @@ def add_modules(net):
 
     #define modules
     modules['inp'] = LinearLayer(40)
-    modules['h1'] = reLU(20)
+    modules['h1'] = reluLayer(20)
     modules['outp'] = SoftmaxLayer(2)
 
     # add modules

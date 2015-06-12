@@ -54,21 +54,14 @@ class cosineSimiliarity(NeuronLayer):
         new_grad[len(outerr)/2:] = dv2
         inerr[:] = np.dot(new_grad, outerr)
 
-class reLU(NeuronLayer):
+class reluLayer(NeuronLayer):
 
     def _forwardImplementation(self, inbuf, outbuf):
-        for i in range(len(inbuf)):
-            if inbuf[i] <= 0:
-                inbuf[i] = 0 
-        outbuf[:] = inbuf[:]
+        outbuf[:] = inbuf * (inbuf > 0)
+        print outbuf
 
     def _backwardImplementation(self, outerr, inerr, inbuf, outbuf):
-        for i in range(len(inbuf)):
-            if inbuf[i] < 0:
-                inerr[i] = 0
-            else:
-                inerr[i] = 1 
-        inerr[:] *= outerr
+        inerr[:] = outerr * (inbuf > 0)
 
 class euclideanDistance(NeuronLayer):
     def euclid_dist(self, v1, v2):

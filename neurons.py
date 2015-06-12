@@ -38,6 +38,7 @@ class cosineSimiliarity(NeuronLayer):
         v1 = inbuf[:len(inbuf)/2]
         v2 = inbuf[len(inbuf)/2:]
         cosine = self.cosine(v1, v2)
+        print cosine
         outbuf[:] = cosine
 
     def _backwardImplementation(self, outerr, inerr, outbuf, inbuf):

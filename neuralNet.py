@@ -1,6 +1,7 @@
 from pybrain.structure.networks.feedforward import FeedForwardNetwork
 from pybrain.structure.modules.linearlayer import LinearLayer
 from pybrain.structure.modules.sigmoidlayer import SigmoidLayer
+from pybrain.structure.modules import SoftmaxLayer, TanhLayer, BiasUnit
 from pybrain.structure.connections.shared import MotherConnection, SharedFullConnection
 from pybrain.structure import FullConnection
 from pybrain.tests.helpers import gradientCheck
@@ -22,30 +23,19 @@ def add_modules(net):
     modules = {}
 
     #define modules
-    modules['inp'] = SigmoidLayer(800)
-    #modules['h1'] = SigmoidLayer(1000)
-    modules['h2'] = neurons.cosineSimiliarity(10)
-    #modules['h3'] = neurons.euclideanDistance(800)
-    modules['outp'] = LinearLayer(1)
+    modules['inp'] = LinearLayer(400)
+    modules['h1'] = TanhLayer(200)
+    modules['outp'] = SoftmaxLayer(2)
 
     # add modules
     net.addInputModule(modules['inp'])
     net.addOutputModule(modules['outp'])
-    #net.addModule(modules['h1'])
-    net.addModule(modules['h2'])
-    #net.addModule(modules['h3'])
+    net.addModule(modules['h1'])
 
     return modules
 
 
 def add_connections(net, modules):
-    # create connections
-    m = MotherConnection(4000)
 
-    c1 = SharedFullConnection(m, modules['inp'], modules['h2'], inSliceTo=400)
-    c2 = SharedFullConnection(m, modules['inp'], modules['h2'], inSliceFrom=400)
-    net.addConnection(c1)
-    net.addConnection(c2)
-    #net.addConnection(FullConnection(modules['h1'], modules['h2']))
-    #net.addConnection(FullConnection(modules['h2'], modules['h3']))
-    net.addConnection(FullConnection(modules['h2'], modules['outp']))
+    net.addConnection(FullConnection(modules['inp'],modules['h1']))
+    net.addConnection(FullConnection(modules['h1'], modules['outp']))

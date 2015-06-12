@@ -17,8 +17,6 @@ def get_data():
     random.seed(10)
     train_file = open(train_filename, 'w')
     test_file = open(test_filename, 'w')
-    num_zero = 0
-    num_one = 0
     with open(datafile) as f:
         for ten_lines in itertools.izip_longest(*[f]*10):
             rand = random.random()
@@ -49,8 +47,6 @@ def get_data():
                             test_ds.addSample(inp, np.array(target), np.array([3]))
                         test_file.write(str(v1))
                         train_file.write("\n")
-    print "num of zeros ", num_zero
-    print "num of ones ", num_one
     train_file.close()
     test_file.close()
     return train_ds, test_ds

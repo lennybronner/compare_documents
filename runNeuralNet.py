@@ -40,7 +40,7 @@ def train_model(net, train_ds, test_ds):
     print "Number of test patterns: ", len(tstdata)
     print "Input and output dimensions: ", trndata.indim, trndata.outdim
 
-    trainer = ExtendedBackpropTrainer(net, learningrate=0.01, dataset=trndata, verbose=True, lrdecay=.99999, weightdecay=0.001)
+    trainer = ExtendedBackpropTrainer(net, learningrate=0.01, dataset=trndata, verbose=True)
 
     for i in range(20):
         trainer.trainEpochs(5)
